@@ -15,11 +15,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AppStartupEvent implements ApplicationListener<ApplicationReadyEvent> {
-    @Autowired
-    private ReservationService reservationService;
-    @Autowired
-    private DateUtils dateUtils;
+    private final ReservationService reservationService;
+    private final DateUtils dateUtils;
 
+    public AppStartupEvent(ReservationService reservationService, DateUtils dateUtils) {
+        this.reservationService = reservationService;
+        this.dateUtils = dateUtils;
+    }
 
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
