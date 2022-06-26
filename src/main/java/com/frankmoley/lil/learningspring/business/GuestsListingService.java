@@ -17,25 +17,12 @@ public class GuestsListingService {
         this.guestRepository = guestRepository;
     }
 
-    public List<GuestsListing> getAllGuests() {
+    public List<Guest> getAllGuests() {
         Iterable<Guest> guests = this.guestRepository.findAll();
-        Map<Long, GuestsListing> guestsListingMap = new HashMap();
+        List<Guest> guestList = new ArrayList<>();
         guests.forEach(guest -> {
-            GuestsListing guestsListing = new GuestsListing();
-            guestsListing.setGuestId(guest.getId());
-            guestsListing.setAddress(guest.getAdress());
-            guestsListing.setCountry(guest.getCountry());
-            guestsListing.setFirstName(guest.getFirstName());
-            guestsListing.setLastName(guest.getLastName());
-            guestsListing.setEmailAddress(guest.getEmailAddress());
-            guestsListing.setState(guest.getState());
-            guestsListing.setPhoneNumber(guest.getPhoneNumber());
-            guestsListingMap.put(guest.getId(), guestsListing);
+            guestList.add(guest);
         });
-        List<GuestsListing> guestsListings = new ArrayList<>();
-        for (Long id : guestsListingMap.keySet()) {
-            guestsListings.add(guestsListings.get(Math.toIntExact(id)));
-        }
-        return guestsListings;
+        return guestList;
     }
 }
